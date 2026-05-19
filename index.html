@@ -7,13 +7,15 @@
         background-color: #999999;
       }
 
-      #download {
+      button#download {
         margin-top: 10px;
         padding: 6px 16px;
       }
     </style>
     <script src="../keymaster/js/libs/jquery-4.0.0.min.js"></script>
     <script src="../keymaster/js/libs/FileSaver.min.js"></script>
+    <script src="base64.js"></script>
+    <script src="https://unpkg.com/pako@2.1.0/dist/pako.min.js"></script>
   </head>
   <body>
     <fieldset>
@@ -23,18 +25,6 @@
       <button id="download">Convert and download</button>
     </fieldset>
     <hr>
-    <script>
-      let lvlXML;
-
-      async function getLvlData() {
-        const lvlXML = new DOMParser().parseFromString(await $("#file")[0].files[0].text(), "text/xml");
-
-        lvlData = lvlXML.getElementsByTagName("s")[1].innerHTML;
-      }
-
-      $("#download")[0].addEventListener("click", () => {
-        // download json
-      })
-    </script>
+    <script src="main.js"></script>
   </body>
 </html>
