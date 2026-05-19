@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GD level to JSON</title>
+    <style>
+      body {
+        background-color: #999999;
+      }
+
+      #download {
+        margin-top: 10px;
+        padding: 6px 16px;
+      }
+    </style>
+    <script src="../keymaster/js/libs/jquery-4.0.0.min.js"></script>
+    <script src="../keymaster/js/libs/FileSaver.min.js"></script>
+  </head>
+  <body>
+    <fieldset>
+      <legend>GD level to JSON</legend>
+      <p>Please upload a .gmd file here:</p>
+      <input type="file" id="file">
+      <button id="download">Convert and download</button>
+    </fieldset>
+    <hr>
+    <script>
+      let lvlXML;
+
+      async function getLvlData() {
+        const lvlXML = new DOMParser().parseFromString(await $("#file")[0].files[0].text(), "text/xml");
+
+        lvlData = lvlXML.getElementsByTagName("s")[1].innerHTML;
+      }
+
+      $("#download")[0].addEventListener("click", () => {
+        // download json
+      })
+    </script>
+  </body>
+</html>
