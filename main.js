@@ -14,7 +14,7 @@ function gzipDecode(str) {
 }
 
 async function getLvlData() {
-  const lvlXML = new DOMParser().parseFromString(await $("#file")[0].files[0].text(), "text/xml");
+  lvlXML = new DOMParser().parseFromString(await $("#file")[0].files[0].text(), "text/xml");
 
   lvlName = lvlXML.getElementsByTagName("s")[0].innerHTML;
 
