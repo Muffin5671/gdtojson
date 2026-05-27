@@ -17,7 +17,13 @@ async function getLvlData() {
   const lvlXML = new DOMParser().parseFromString(await $("#file")[0].files[0].text(), "text/xml");
 
   lvlName = lvlXML.getElementsByTagName("s")[0].innerHTML;
-  lvlData = gzipDecode(lvlXML.getElementsByTagName("s")[1].innerHTML);
+
+  let element;
+  for (let i = 0; lvlXML.getElementsByTagName("s")[i].startsWith("H4sIAAAAAAAAA"); i++) {
+    element = lvlXML.getElementsByTagName("s")[i];
+  }
+
+  lvlData = gzipDecode(element.innerHTML);
 
   return true;
  }
