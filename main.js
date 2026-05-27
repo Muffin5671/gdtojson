@@ -19,14 +19,14 @@ async function getLvlData() {
   lvlName = lvlXML.getElementsByTagName("s")[0].innerHTML;
 
   let element;
-  for (let i = 0; lvlXML.getElementsByTagName("s")[i].startsWith("H4sIAAAAAAAAA"); i++) {
+  for (let i = 0; lvlXML.getElementsByTagName("s")[i].innerHTML.startsWith("H4sIA"); i++) {
     element = lvlXML.getElementsByTagName("s")[i];
   }
 
   lvlData = gzipDecode(element.innerHTML);
 
   return true;
- }
+}
 
 $("#download")[0].addEventListener("click", async () => {
   await getLvlData();
