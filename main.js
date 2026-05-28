@@ -8,13 +8,9 @@ function b64Decode(str) { return Base64.atob(str.replace(/_/g, '/').replace(/-/g
 function b64Encode(str) { return Base64.btoa(str).replace(/\//g, '_').replace(/\+/g, '-') }
 
 function gzipDecode(str) {
-  try {
-    let toDecode = b64Decode(str, true)
-    toDecode = new Uint8Array(toDecode.split('').map(x => x.charCodeAt(0)))
-    return pako.inflate(toDecode, {to: 'string'})
-  } catch (e) {
-    return undefined
-  }
+  let toDecode = b64Decode(str, true)
+  toDecode = new Uint8Array(toDecode.split('').map(x => x.charCodeAt(0)))
+  return pako.inflate(toDecode, {to: 'string'})
 }
 
 async function getLvlData() {
@@ -36,21 +32,29 @@ async function getLvlData() {
 }
 
 $("#download")[0].addEventListener("click", async () => {
-  await getLvlData();
+  try {
+    await getLvlData();
 
-  let lvlJSON = {
-    name: lvlName,
-    objects: []
-  };
+    let lvlJSON = {
+      name: lvlName,
+      objects: []
+    };
 
-  const split = lvlData.split(";");
-  split.shift();
-  
-  for (let i = 0; i < (split.length - 1); i++) {
-    let oS = split[i].split(",");
-    lvlJSON.objects.push({ obj: Number(oS[1]), x: Number(oS[3]), y: Number(oS[5]) });
+    const split = lvlData.split(";");
+    split.shift();
+
+    for (let i = 0; i < (split.length - 1); i++) {
+      let oS = split[i].split(",");
+      lvlJSON.objects.push({
+        obj: Number(oS[1]), 
+        x: Number(oS[3]), 
+        y: Number(oS[5]) 
+      });
+    }
+
+    let JSONFile = new File([JSON.stringify(lvlJSON, undefined, 2)], `${lvlName}.json`);
+    saveAs(JSONFile);
+  } catch (e) {
+    alert(`There was an error converting the file:\n\n${e}`);
   }
-
-  let JSONFile = new File([JSON.stringify(lvlJSON, undefined, 2)], `${lvlName}.json`);
-  saveAs(JSONFile);
 });
