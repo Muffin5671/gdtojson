@@ -8,7 +8,12 @@
         background-color: #999999;
       }
 
-      button#download {
+      textarea {
+        width: 400px;
+        height: 150px;
+      }
+
+      button.big {
         margin-top: 15px;
         padding: 12px 24px;
       }
@@ -21,10 +26,13 @@
   <body>
     <fieldset>
       <legend>GD level to JSON</legend>
-      <p>Please upload a .gmd file here:</p>
-      <input type="file" id="file">
+      <p>Upload a .gmd file here:</p>
+      <input type="file" id="file"><button id="download">Go</button>
       <br>
-      <button id="download">Convert and download</button>
+      <p>Or paste level data here (encoded):</p>
+      <textarea id="textarea" style="width: 400px; height: 150px;"></textarea>
+      <br>
+      <button class="big" id="download2">Convert and download</button>
     </fieldset>
     <hr>
     <p>Note: Some .gmd files may not work because of how hard they are to read.</p>
